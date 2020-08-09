@@ -1,0 +1,26 @@
+---
+- name: Install httpd
+  hosts: 172.31.39.75
+  become: true
+  tasks:
+  - name: Install httpd on web server
+    yum:
+      name: httpd
+      state: present
+  - name: Insert index page
+    template:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: start the httpd service
+    service:
+      name: httpd
+      state: started
+
+- name: Install DB
+  hosts: 172.31.62.215
+  become: true
+  tasks:
+  - name: Install DB on DB Server
+    yum:
+      name: mysql
+      state: present
